@@ -17,7 +17,7 @@ All core learning notebooks are organized inside the [updatedlangchain/](updated
 | 🎛️ **[modelintegration.ipynb](updatedlangchain/modelintegration.ipynb)** | LLM Provider Integration | Interacting with **OpenAI**, **Google Gemini**, and **Groq**. Features real-time output **Streaming**. |
 | 📋 **[structuredoutput.ipynb](updatedlangchain/structuredoutput.ipynb)** | Output Parsing & Schemas | Restricting outputs to target schemas using **Pydantic** (nested), **TypedDict**, and **Data Classes**. |
 | 🛠️ **[tools.ipynb](updatedlangchain/tools.ipynb)** | Function/Tool Calling | Binding external tools to LLMs, custom tool schemas, and tools execution loops. |
-| 🧠 **[middleware.ipynb](updatedlangchain/middleware.ipynb)** | Agent Middleware & Control | Controlling execution loops, tracking behavior, and **Summarization Middleware** (token/fraction-based truncation). |
+| 🧠 **[middleware.ipynb](updatedlangchain/middleware.ipynb)** | Agent Middleware & Control | Controlling loops via **Summarization Middleware** (token/fraction truncation) and **Human-in-the-Loop Middleware** (interrupts, approve/edit/reject tools). |
 
 ---
 
@@ -52,8 +52,9 @@ Teach your models to take action in the real world.
 
 ### 6. 🧠 [Agent Middleware & Advanced Controls](updatedlangchain/middleware.ipynb)
 Control the execution loops of agents with custom middleware.
-* **Summarization Middleware**: Automatically compress and summarize older conversation history when approaching context window token limits.
-* **Token/Fraction Triggers**: Set triggers (`"tokens"`, `"messages"`) to maintain core instructions and recent context while compressing the rest.
+* **Summarization Middleware**: Automatically compress and summarize older conversation history when approaching context window token limits using token or fraction-based triggers.
+* **Human-in-the-Loop Middleware**: Pause agent execution for human approval, rejection, or editing of tool calls before execution.
+* **Interrupt Resumption with Commands**: Use `langgraph.types.Command` to resume workflows with `approve`, `reject`, or custom `edit` decisions that swap out tool arguments on-the-fly.
 
 ---
 
@@ -69,17 +70,17 @@ cd Learn-Langchain
 
 ### 2. Set Up Virtual Environment & Dependencies
 
-**Using `uv`:**
+**Using `uv` (recommended):**
 ```bash
-uv venv
-uv pip install -r requirements.txt
+# Sync dependencies from pyproject.toml
+uv sync
 ```
 
 **Using standard `pip`:**
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+pip install .
 ```
 
 ### 3. Configure API Keys
